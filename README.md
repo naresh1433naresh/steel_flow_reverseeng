@@ -1,4 +1,4 @@
-# Hii there i Naresh Kumar Shaw Im building this project to learn for myself the project name is STEELFLOW im doing reverse engineering and building this project from scratch 
+# Hii there I am  Naresh Kumar Shaw Im building this project to learn for myself the project name is STEELFLOW im doing reverse engineering and building this project from scratch 
 
 # the project is actually
 -Detects and counts rebar bundles using YOLO + ByteTrack.
