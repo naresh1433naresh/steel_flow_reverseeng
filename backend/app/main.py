@@ -32,6 +32,14 @@ def get_truck():
 
 
     }
+@app.get('/trucks')
+def get_truck():
+    return {
+        "plate":truck.licence_plate,
+        "count":truck.bundle_count
+
+
+    }
 
 
 
