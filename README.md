@@ -1,6 +1,6 @@
-# Hii there I am  Naresh Kumar Shaw Im building this project to learn for myself the project name is STEELFLOW im doing reverse engineering and building this project from scratch 
+# Hii there I am  Naresh Kumar Shaw and Aman kumar sharma we are building this project to learn for ourself this project name is STEELFLOW we are doing reverse engineering and building this project from scratch 
 
-# the project is actually
+# this project is actually
 -Detects and counts rebar bundles using YOLO + ByteTrack.
 -Tracks movement through virtual counting lines.
 -Compares Truck Unloading vs Godown Entry counts using two cameras.
