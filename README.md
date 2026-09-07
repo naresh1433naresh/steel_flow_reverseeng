@@ -8,6 +8,39 @@
 -Allows a human operator to verify or correct AI results.
 
 # Structure of project
+steelflow_reverse/
+│
+├── backend/
+│   └── app/
+│       ├── main.py
+│       │
+│       ├── api/
+│       │   └── routes/
+│       │
+│       ├── services/
+│       │
+│       ├── models/
+│       │
+│       ├── schemas/
+│       │
+│       └── core/
+│
+├── tests/
+│
+├── .gitignore
+├── README.md
+├── GITHUB_HELP.md
+└── requirements.txt
 
 # technologies used 
+
+- Python
+- FastAPI
+- Uvicorn
+- Pydantic
+- OpenCV
+- YOLO
+- PostgreSQL
+- pgvector
+- Git & GitHub
 
