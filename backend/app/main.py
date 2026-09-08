@@ -1,9 +1,15 @@
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
-
+#pydantic model truck 
 class Truck (BaseModel):
     licence_plate :str
     bundle_count: int = Field(ge=0)
+#second pydantic model 
+
+class TruckResponse(BaseModel):
+    licence_plate:str
+    bundle_count:int = Field(ge=0)
+    message :str
 
 truck=Truck(licence_plate="UP16562",
             bundle_count="415")
@@ -13,9 +19,11 @@ app=FastAPI()
 @app.get('/health')
 def health():
     return{"status":"healthy"}
+
 @app.get('/hello')
 def hello():
     return {"message ":"hello steelflow "}
+
 @app.post('/trucks')
 def create_truck(truck:Truck):
     
@@ -24,22 +32,28 @@ def create_truck(truck:Truck):
         "count ": truck.bundle_count,
         "message ": "truck received"
     }
-@app.get('/trucks')
+trucks=[
+
+    Truck(licence_plate="up3234",bundle_count=12),
+    Truck(licence_plate="up5643",bundle_count=13),
+    Truck(licence_plate="up2342",bundle_count=34)
+
+]
+@app.get('/trucks',status_code=201)
 def get_truck():
-    return {
-        "plate":truck.licence_plate,
-        "count":truck.bundle_count
+    return truck
 
+        
+        
 
-    }
-@app.get('/trucks')
-def get_truck():
-    return {
-        "plate":truck.licence_plate,
-        "count":truck.bundle_count
+    
+@app.get("/all-trucks")
+def get_all_trucks():
+    return trucks
 
+    
+    
 
-    }
 
 
 

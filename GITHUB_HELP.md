@@ -12,3 +12,4 @@ git log        → See commits
 git diff       → See code changes
 git remote -v  → Check GitHub connection
 ..........................................................................................................
+uvicorn backend.app.main:app --reload
