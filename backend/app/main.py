@@ -7,12 +7,12 @@ class Truck (BaseModel):
 #second pydantic model 
 
 class TruckResponse(BaseModel):
-    licence_plate:str
-    bundle_count:int = Field(ge=0)
+    plate:str
+    count:int 
     message :str
 
 truck=Truck(licence_plate="UP16562",
-            bundle_count="415")
+            bundle_count=415)
 print(truck)
 
 app=FastAPI()
@@ -24,13 +24,13 @@ def health():
 def hello():
     return {"message ":"hello steelflow "}
 
-@app.post('/trucks')
+@app.post('/trucks',status_code=201,response_model=TruckResponse)
 def create_truck(truck:Truck):
     
     return{
         "plate" : truck.licence_plate ,
-        "count ": truck.bundle_count,
-        "message ": "truck received"
+        "count": truck.bundle_count,
+        "message": "truck received"
     }
 trucks=[
 
@@ -39,7 +39,7 @@ trucks=[
     Truck(licence_plate="up2342",bundle_count=34)
 
 ]
-@app.get('/trucks',status_code=201)
+@app.get('/trucks')
 def get_truck():
     return truck
 
@@ -53,7 +53,11 @@ def get_all_trucks():
 
     
     
+@app.get("/all-trucks")
+def get_all_trucks():
+    return trucks
 
+    
 
 
 
