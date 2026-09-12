@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,HTTPException
 from pydantic import BaseModel,Field
 
 #pydantic model of truck
@@ -65,4 +65,7 @@ def search_truck(limit:int):
 @app.get("/trucks/{truck_id}")
 def get_one_truck(truck_id:int,details:bool):
     return {"truck_id":truck_id,"details":details}
-#path+query parameters 
+#path+query parameters
+@app.get("/truck_error")
+def get_truck_error():
+    raise HTTPException(status_code=404,detail="truck not found ")
