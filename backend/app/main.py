@@ -1,10 +1,11 @@
 from fastapi import FastAPI
 from pydantic import BaseModel,Field
 
+#pydantic model of truck
 class Truck(BaseModel):
     licence_plate:str
     bundle_count:int=Field(ge=0)
-
+#second pydantic model of response
 class TruckResponse(BaseModel):
     plate:str
     count:int
@@ -41,10 +42,9 @@ def create_truck(truck:Truck):
         "count":truck.bundle_count,
         "message":"truck received"
     }
+#path parameters 
 
-@app.get("/trucks")
-def get_one_truck():
-    return truck
+
 
 @app.get("/all-trucks")
 def get_all_trucks():
@@ -53,3 +53,16 @@ def get_all_trucks():
 @app.get("/truck_count")
 def get_truck_count():
     return {"total_trucks":len(trucks)}
+
+#query parameters 
+
+@app.get("/truck-search")
+def search_truck(limit:int):
+    return {"limit":limit}
+
+#path parameters 
+
+@app.get("/trucks/{truck_id}")
+def get_one_truck(truck_id:int,details:bool):
+    return {"truck_id":truck_id,"details":details}
+#path+query parameters 
