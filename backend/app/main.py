@@ -1,5 +1,13 @@
 from fastapi import FastAPI,HTTPException
 from pydantic import BaseModel,Field
+import sqlite3
+
+#connection to sqllite 
+connection = sqlite3.connect("database.db")
+cursor = connection.cursor()
+
+cursor.execute("SELECT * FROM trucks")
+print(connection)
 
 #pydantic model of truck
 class Truck(BaseModel):
