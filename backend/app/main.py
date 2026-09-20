@@ -2,6 +2,8 @@ from fastapi import FastAPI,HTTPException
 from pydantic import BaseModel,Field
 import sqlite3
 
+app=FastAPI()
+
 
 
 #to have reusable functions 
@@ -12,16 +14,25 @@ def get_trucks():
     cursor.execute("SELECT * FROM trucks ")
     rows = cursor.fetchall()
 
-    connection.lose()
+    connection.close()
     return rows 
+#function to add truck attributes 
 def add_truck(licence_plate,bundle_count):
     connection=sqlite3.connect("database.db")
     cursor=connection.cursor()
 
-    cursor.execute("""" INSERT into trucks (licence_plate,bundle_count)
-                        values ("up3321",32)""",(licence_plate,bundle_count))
+    cursor.execute(""" INSERT into trucks (licence_plate,bundle_count)
+                        values (?,?)""",(licence_plate,bundle_count))
     connection.commit()
     connection.close()
+
+# adding endpoints to connect ro fastapi
+@app.get("/trucks")
+def read_trucks():
+    return get_trucks()
+
+
+
 
 #pydantic model of truck
 class Truck(BaseModel):
@@ -46,7 +57,7 @@ trucks=[
     Truck(licence_plate="up2342",bundle_count=34)
 ]
 
-app=FastAPI()
+
 
 @app.get("/health")
 def health():
@@ -55,10 +66,11 @@ def health():
 @app.get("/hello")
 def hello():
     return {"message":"hello steelflow"}
+#post endpoint
 
 @app.post("/trucks",status_code=201,response_model=TruckResponse)
 def create_truck(truck:Truck):
-    trucks.append(truck)
+    add_truck(truck.licence_plate,truck.bundle_count)
     return{
         "plate":truck.licence_plate,
         "count":truck.bundle_count,
