@@ -2,12 +2,26 @@ from fastapi import FastAPI,HTTPException
 from pydantic import BaseModel,Field
 import sqlite3
 
-#connection to sqllite 
-connection = sqlite3.connect("database.db")
-cursor = connection.cursor()
 
-cursor.execute("SELECT * FROM trucks")
-print(connection)
+
+#to have reusable functions 
+def get_trucks():
+    connection = sqlite3.connect("database.db")
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT * FROM trucks ")
+    rows = cursor.fetchall()
+
+    connection.lose()
+    return rows 
+def add_truck(licence_plate,bundle_count):
+    connection=sqlite3.connect("database.db")
+    cursor=connection.cursor()
+
+    cursor.execute("""" INSERT into trucks (licence_plate,bundle_count)
+                        values ("up3321",32)""",(licence_plate,bundle_count))
+    connection.commit()
+    connection.close()
 
 #pydantic model of truck
 class Truck(BaseModel):
