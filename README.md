@@ -10,4 +10,8 @@
 # Structure of project
 
 # technologies used 
+python 
+fastapi
+uvicorn 
+sqlite 
 
