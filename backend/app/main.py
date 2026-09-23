@@ -5,7 +5,7 @@ import sqlite3
 app=FastAPI()
 
 
-
+#......................................................................................
 #to have reusable functions 
 def get_trucks():
     connection = sqlite3.connect("database.db")
@@ -15,7 +15,14 @@ def get_trucks():
     rows = cursor.fetchall()
 
     connection.close()
-    return rows 
+    return rows
+
+@app.get("/all-trucks")
+def get_all_trucks():
+    return get_trucks()
+#................................................................................................
+
+    
 #function to add truck attributes 
 def add_truck(licence_plate,bundle_count):
     connection=sqlite3.connect("database.db")
@@ -80,9 +87,6 @@ def create_truck(truck:Truck):
 
 
 
-@app.get("/all-trucks")
-def get_all_trucks():
-    return trucks
 
 @app.get("/truck_count")
 def get_truck_count():
