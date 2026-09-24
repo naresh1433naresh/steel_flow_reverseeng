@@ -1,6 +1,8 @@
 from fastapi import FastAPI,HTTPException
 from pydantic import BaseModel,Field
 import sqlite3
+from sqlalchemy import create_engine
+
 
 app=FastAPI()
 
@@ -16,10 +18,13 @@ def get_trucks():
 
     connection.close()
     return rows
-
-@app.get("/all-trucks")
-def get_all_trucks():
+# adding endpoints to connect ro fastapi
+@app.get("/trucks")
+def read_trucks():
     return get_trucks()
+
+
+
 #................................................................................................
 
     
@@ -33,10 +38,6 @@ def add_truck(licence_plate,bundle_count):
     connection.commit()
     connection.close()
 
-# adding endpoints to connect ro fastapi
-@app.get("/trucks")
-def read_trucks():
-    return get_trucks()
 
 
 
@@ -58,11 +59,6 @@ truck=Truck(
 
 print(truck)
 
-trucks=[
-    Truck(licence_plate="up3234",bundle_count=12),
-    Truck(licence_plate="up5643",bundle_count=13),
-    Truck(licence_plate="up2342",bundle_count=34)
-]
 
 
 
@@ -90,7 +86,7 @@ def create_truck(truck:Truck):
 
 @app.get("/truck_count")
 def get_truck_count():
-    return {"total_trucks":len(trucks)}
+    return {"total_trucks": len(get_trucks())}
 
 #query parameters 
 
