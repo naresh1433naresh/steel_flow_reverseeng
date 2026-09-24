@@ -1,10 +1,11 @@
 from fastapi import FastAPI,HTTPException
 from pydantic import BaseModel,Field
 import sqlite3
-from sqlalchemy import create_engine
+from .database import engine 
 
 
 app=FastAPI()
+
 
 
 #......................................................................................
@@ -46,18 +47,20 @@ def add_truck(licence_plate,bundle_count):
 class Truck(BaseModel):
     licence_plate:str
     bundle_count:int=Field(ge=0)
-#second pydantic model of response
-class TruckResponse(BaseModel):
-    plate:str
-    count:int
-    message:str
-
+    
 truck=Truck(
     licence_plate="UP16562",
     bundle_count=415
 )
 
 print(truck)
+#second pydantic model of response
+class TruckResponse(BaseModel):
+    plate:str
+    count:int
+    message:str
+
+
 
 
 
